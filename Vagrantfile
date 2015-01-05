@@ -6,23 +6,23 @@ VAGRANT_ROOT = File.dirname(__FILE__)
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
-  config.vm.define "bare" do |bare|
+  config.vm.define "util01" do |util01|
 
     if Vagrant.has_plugin?("vagrant-cachier")
-      bare.cache.scope = :box
+      util01.cache.scope = :box
     end
     if Vagrant.has_plugin?("vagrant-vbguest")
-      bare.vbguest.auto_update = false
+      util01.vbguest.auto_update = false
     end
 
-    bare.ssh.forward_agent = true
-    bare.vm.box = "centos65"
-    bare.vm.box_url = "https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box"
+    util01.ssh.forward_agent = true
+    util01.vm.box = "centos65"
+    util01.vm.box_url = "https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box"
 
-    bare.vm.network :private_network, ip: "192.168.56.190"
-    bare.vm.hostname = "dev.bare.francotechnology.com"
+    util01.vm.network :private_network, ip: "192.168.58.190"
+    util01.vm.hostname = "util01.francotechnology.com"
 
-    bare.vm.provider :virtualbox do |vb|
+    util01.vm.provider :virtualbox do |vb|
       vb.customize ["modifyvm", :id, "--memory", "512"]
       vb.customize ["modifyvm", :id, "--cpuexecutioncap", "100"]
       vb.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
