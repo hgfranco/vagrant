@@ -20,7 +20,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     util.vm.box_url = "https://github.com/2creatives/vagrant-centos/releases/download/v6.5.3/centos65-x86_64-20140116.box"
 
     util.vm.network :private_network, ip: "192.168.58.190"
-    util.vm.hostname = "util.francotechnology.com"
+    util.vm.hostname = "util01.francotechnology.com"
 
     util.vm.synced_folder "../scripts/", "/home/vagrant/scripts/"
 
@@ -31,7 +31,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       # ansible.verbose = 'vvvv'
 
     end
-
 
     util.vm.provider :virtualbox do |vb|
       vb.customize ["modifyvm", :id, "--memory", "512"]
