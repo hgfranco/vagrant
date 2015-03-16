@@ -12,6 +12,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 ########
 
 config.vm.define "util" do |util|
+    util.ssh.insert_key = false
 
     if Vagrant.has_plugin?("vagrant-cachier")
       util.cache.scope = :box
@@ -45,11 +46,13 @@ config.vm.define "util" do |util|
 end
 
 
-#######
-# WWW #
-#######
+###########
+# WWW_DEV #
+###########
 
 config.vm.define "www" do |www|
+
+    www.ssh.insert_key = false
 
     if Vagrant.has_plugin?("vagrant-cachier")
       www.cache.scope = :box
@@ -68,7 +71,7 @@ config.vm.define "www" do |www|
     #www.vm.synced_folder "../scripts/", "/home/vagrant/scripts/"
 
     www.vm.provision "ansible" do |ansible|
-      ansible.playbook = "../ansible/masterbooks/www.yml"
+      ansible.playbook = "../ansible/masterbooks/www_dev.yml"
       ansible.inventory_path = "../ansible/inventory/development"
       ansible.limit = 'www'
       # ansible.verbose = 'vvvv'
@@ -83,11 +86,13 @@ config.vm.define "www" do |www|
 end
 
 ##########
-# WWW-WB #
+# WWW_DB #
 ##########
 
-config.vm.define "www-db" do |wwwdb|
+config.vm.define "www_db" do |wwwdb|
 
+    www_db.ssh.insert_key = false
+    
     if Vagrant.has_plugin?("vagrant-cachier")
       wwwdb.cache.scope = :box
     end
@@ -107,7 +112,7 @@ config.vm.define "www-db" do |wwwdb|
     wwwdb.vm.provision "ansible" do |ansible|
       ansible.playbook = "../ansible/masterbooks/www-db.yml"
       ansible.inventory_path = "../ansible/inventory/development"
-      ansible.limit = 'www-db'
+      ansible.limit = 'www_db'
       # ansible.verbose = 'vvvv'
     end
 
